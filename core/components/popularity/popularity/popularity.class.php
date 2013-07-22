@@ -76,10 +76,11 @@ class Popularity {
 		return $flag;
 	}
 	public function calcRang($obj){
+         $total = 0;
         $total = $obj->get('view')/($obj->get('days')+1); //За просмотры
         $total += $obj->get('comment');
-        $total += $obj->get('comment')*($obj->get('comment')/$obj->get('view')); // за комментарии
-        $total += $obj->get('comment')*(($obj->get('days')==0 && $obj->get('comment')>0) ? 1 : ($obj->get('days')/($obj->get('days')+1))); // за комментарии
+        $total += ($obj->get('comment') + $obj->get('view'))/(($obj->get('view')+1)/($obj->get('days')+1)); //Индекс вовлеченности пользователей
+        $total += ($obj->get('comment') + $obj->get('view'))*(($obj->get('days')==0 && $obj->get('comment')>0) ? 1 : ($obj->get('days')/($obj->get('days')+1))); // за комментарии
 		return $total;
 	}
 	
